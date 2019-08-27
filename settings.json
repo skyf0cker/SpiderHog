@@ -1,0 +1,29 @@
+{
+  "FConfig": {},
+  "PConfig": {},
+  "SConfig": {
+    "SavePath": "./data/",
+    "SaveMethod": "Text"
+  },
+  "SpConfig": {
+    "header": {
+      "Host": "www.sxu.edu.cn",
+      "Connection": "keep-alive",
+      "Pragma": "no-cache",
+      "Cache-Control": "no-cache",
+      "Sec-Fetch-Mode": "no-cors",
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/76.0.3809.100 Chrome/76.0.3809.100 Safari/537.36",
+      "Accept": "text/css,*/*;q=0.1",
+      "Sec-Fetch-Site": "same-origin",
+      "Referer": "",
+      "cookies": ""
+    },
+    "TargetUrl": "http://www.sxu.edu.cn",
+    "Method": "GET",
+    "Retry": 3
+  },
+  "PrConfig": {
+    "Ip": "127.0.0.1",
+    "Port": "8080"
+  }
+}
