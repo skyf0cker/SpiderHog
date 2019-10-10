@@ -1,0 +1,17 @@
+{
+  "Fetcher": {
+    "header": {
+      "User-Agent": ["Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/76.0.3809.100 Chrome/76.0.3809.100 Safari/537.36"]
+    },
+    "cookies":[{
+      "Name": "",
+      "Value": ""
+    }],
+    "begin_url": "https://code.fabao365.com/level_4.html",
+    "method": "GET",
+    "raw_data": {},
+    "proxy_source": "http://127.0.0.1:5010"
+  },
+  "Parser": {},
+  "Saver": {}
+}

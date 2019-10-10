@@ -1,71 +1,55 @@
 package conf
 
 import (
-	"../utils"
-	"log"
+	"SpiderHog/utils"
+	"net/http"
+	"sync"
 )
+
+var config *Configure
+var once sync.Once
 
 const (
-	configPath string = "./settings.json"
+	configPath string = "./conf/settings.json"
 )
 
-type JsonConfig struct {
-	FConfig FetcherConfig
-	PConfig ParserConfig
-	SConfig SaverConfig
-	SpConfig SpiderConfig
-	PrConfig ProxierConfig
+type RequesterConfig struct {
+	Header      http.Header   `json:"header"`
+	Cookies     []map[string]string `json:"cookies"`
+	BeginUrl    string        `json:"begin_url"`
+	RawData     utils.Data    `json:"raw_data"`
+	Method      string        `json:"method"`
+	ProxySource string        `json:"proxy_source"`
 }
 
-type SpiderConfig struct {
-	Header HttpHeader
-	TargetUrl string
-	Method string
-	Retry int
+type Configure struct {
+	FetConfig FetcherConfig `json:"Fetcher"`
+	ParConfig ParserConfig	`json:"Parser"`
+	SavConfig SaverConfig	`json:"Saver"`
 }
+
+//下面是各自的配置文件
 
 type FetcherConfig struct {
+	RequesterConfig
 }
 
 type ParserConfig struct {
 }
 
 type SaverConfig struct {
-	SavePath string
-	SaveMethod string
 }
 
-type ProxierConfig struct {
-	Ip   string
-	Port string
-}
-
-type HttpHeader struct {
-	UserAgent string `json:"User-Agent"`
-	Referer string
-	Host string
-	Connection string
-	Pragma string
-	CacheControl string `json:"Cache-Control"`
-	SecFetchMode string `json:"Sec-Fetch-Mode"`
-	Accept string
-	SecFetchSite string `json:"Sec-Fetch-Site"`
-	Cookies string
-}
-
-func Configure() JsonConfig {
-	j := JsonConfig{}
-	if ! utils.Exists(configPath) {
-		log.Fatal("[*]:  Missing the config file:settings.json")
-	} else {
-		jsonParser := utils.ReadJsonFile(configPath)
-		err := jsonParser.Decode(&j)
-		if !utils.Check(err) {
-			log.Fatal("[*]:  json parse failed",err)
+func GetConfigure() *Configure {
+	once.Do(func() {
+		if ! utils.Exists(configPath) {
+			panic("Missing the config file:settings.json")
 		}
-	}
-	return j
+		config = &Configure{}
+		jsonParser := utils.ReadJsonFile(configPath)
+		if err := jsonParser.Decode(config); err != nil {
+			panic("configure file parsed failed!")
+		}
+	})
+	return config
 }
-
-
-
